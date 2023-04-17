@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api>
+    <cloudinary>
+        <cloud-name></cloud-name>
+        <api-key></api-key>
+        <api-secret></api-secret>
+    </cloudinary>
+    <rapidapi>
+        <X-RapidAPI-Key>
+            <k1></k1>
+            <k2></k2>
+        </X-RapidAPI-Key>
+        <X-RapidAPI-Host>metropolis-api-captcha.p.rapidapi.com</X-RapidAPI-Host>
+        <HTTPSConnection-client>metropolis-api-captcha.p.rapidapi.com</HTTPSConnection-client>
+    </rapidapi>
+    <model1>
+        <model-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/textCaptcha/static/model/m1.h5</model-path>
+        <predict-file>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/textCaptcha/static/predictProgs/M1.py</predict-file>
+    </model1>
+</api>

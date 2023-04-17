@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generateCaptcha.css' %}">
+    <style>
+        body {
+            overflow: hidden;
+        }
+        #image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+        #loading-spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #hvr:hover::before {
+            display: inline-block;
+            position: absolute;
+            background: #000;
+            color: #fff;
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 12px;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 5px);
+        }
+        /* The Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-width: 800px;
+            background-color: #fff;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    {% include "./header.html" %}
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content" style="padding: 40px; padding-right: 100px;">
+            <span class="close">&times;</span>
+            <div style="border: 1px solid #ccc; padding: 20px;">
+                <h5><b>Lets see some limitations..</b></h5>
+                <p style="padding: 40px; padding-top: 0%; padding-bottom: 10px;">Here we are utilizing our pre-existing 
+                    model that was trained to recognize specific type of CAPTCHA. Consequently, 
+                    it is possible for the model to predict other CAPTCHAs as well, but the 
+                    <b>accuracy may be compromised</b>.</p>
+                <p>For better understanding you can <button onclick="redirectToPage()">generate CAPTCHA</button> 
+                    same as this model is trained on and then try predicting that generated CAPTCHA.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom: 90px;">
+        <div class="forms-container">
+            <input type="hidden" id="my-var" value="{{captcha_value}}">
+            {% if captcha_value %}
+                <div style="display: flex; align-items: center;">
+                    <p>Your Image </p>
+                    <img src="data:image/png;base64,{{ image_data }}" style="width: 50%; border: 2px solid black;" alt="My Image">
+                    <div style="margin-left: 20px;">
+                    <p style="padding-left: 20px;"> Predicted Captcha : 
+                        <h1 style="padding-left: 30px;"><b>{{captcha_value}}</b></h1>
+                    </p>
+                    <button id="redirect">Reset</button>
+                    </div>
+                </div>
+            {% else %}
+                <form method="post" enctype="multipart/form-data" onload="popUpDisplay()" onsubmit="showLoadingScreen()">
+                    {% csrf_token %}
+                    <label for="image">Choose an image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" style="text-align: center;">
+                    <div>
+                        <label for="option1" id="hvr" title="Using API call for captcha Recognition">API</label>
+                        <input type="radio" id="option1" name="opt" value="API" style="display: inline-block;">
+                        <label for="option2" id="hvr" title="Our pre-Build model for captcha Recognition, Accuracy may decreased">Model</label>
+                        <input type="radio" id="option2" name="opt" value="Model" style="display: inline-block;" checked>
+                    </div>
+                    <div>
+                        <img id="image-preview" alt="">
+                    </div>
+                    <div style="padding: 10px;">
+                        <button type="submit">Extract Text</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var my_var = document.getElementById("my-var").value;
+    window.onload = function () {
+    if (!my_var) {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        modal.style.display = "block";
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
+};
+</script>
+
+<script>
+    function redirectToPage() {
+      window.location.href = "/generateCaptcha";
+    }
+  </script>
+
+<script>
+    const resetButton = document.getElementById('redirect');
+    resetButton.addEventListener('click', () => {
+        window.location.href = '/recognizeCaptcha'; // replace with the URL of the page you want to redirect to
+    });
+</script>
+
+<script>
+    function showLoadingScreen() {
+        const loadingScreen = document.getElementById('loading-overlay');
+        loadingScreen.style.display = 'flex';
+    }
+    const imageInput = document.getElementById('image');
+    imageInput.addEventListener('change', () => {
+        const file = imageInput.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.src = reader.result;
+        };
+    });
+</script>

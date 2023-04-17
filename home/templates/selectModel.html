@@ -1,0 +1,249 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>select model</title>
+    <style>
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+
+        #loading-spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* The Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-width: 800px;
+            background-color: #fff;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "./header.html" %}
+    <!-- HERE THIS CODE IS STATIC WHICH NEEDS TO BE DYNAMIC -->
+    <!-- <select id="dropdown" onchange="displayMessage({{ my_list_json }})">
+        <option value="">Please select an option</option>
+        <option value="model1">Model 1</option>
+        <option value="model2">Model 2</option>
+    </select> -->
+
+    <!-- Spinner -->
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+    <div class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content" style="padding: 40px; padding-right: 100px;">
+            <span class="close">&times;</span>
+            <div style="border: 1px solid #ccc; padding: 20px;">
+                <h5><b>Why so many models?</b></h5>
+                <p style="padding: 40px; padding-top: 0%; padding-bottom: 10px;">When you train a model to recognize and
+                    solve a particular type of captcha,
+                    it is trained to recognize the unique characteristics of that specific type of captcha.
+                    So, if you train a model on a specific type of captcha, it will work well on that type of captcha,
+                    but may not work as well or at all on other types of captchas.</p>
+                <p>So we have trained different models to recognize different type of CAPTCHAs.</p>
+                <p>Here some examples are given based on you can select model.
+                    Each model can solve different type of CAPTCHA based on dataset that model is trained on.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <div
+                style="float: left; width: 50%; text-align: center; padding-bottom: 2cm; padding-top: 30px;padding-left: 10%;">
+                <p>Please select the Model : <button id="code-link" style="display: none;">Download code</button></p>
+                <select class="btn btn-secondry dropdown-toggle" id="dropdown"
+                    onchange="displayMessage({{ my_list_json }})">
+                    {% for option in my_options %}
+                    <option value="{{ option.value }}" id="{{ option.id }}">{{ option.label }}</option>
+                    {% endfor %}
+                </select>
+                <button id="redirectToPage" class="btn btn-outline-secondry" onclick="redirectToPage()">Next</button>
+            </div>
+            <div
+                style="float: right; width: 50%; height:auto; text-align: center; padding-bottom: 30px; padding-top: 1cm; padding-right: 15%;">
+                <img id="captcha" src="" alt="" width="" style="margin: 20px 0;">
+                <span id="size"></span>
+                <p id="captcha-text" style="text-align: center;"></p>
+            </div>
+        </div>
+        <div>
+            <div style="float: left; width: 50%; height:auto; text-align: right;">
+                <img id="accuracy" src="" alt="" />
+                <p id="accuracy-text" style="text-align: center;"></p>
+            </div>
+            <div style="float: right; width: 50%; height:auto;">
+                <img id="loss" src="" alt="" />
+                <p id="loss-text" style="text-align: center;"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    window.onload = function () {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        modal.style.display = "block";
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script>
+<script>
+    const img = document.querySelector('#captcha');
+    const sizeEl = document.querySelector('#size');
+    img.addEventListener('load', function () {
+        const width = img.width;
+        const height = img.height;
+        sizeEl.textContent = `${height} x ${width}`;
+    });
+</script>
+<script>
+    function redirectToPage() {
+        const selectBox = document.querySelector('#dropdown');
+        var submitBtn = document.querySelector('#redirectToPage');
+        if (selectBox.value === '') {
+            alert('Please select an option');
+        }
+        else {
+            // Show the loading overlay
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'block';
+            const selectedOption = selectBox.value;
+            window.location.href = "/textCaptcha/" + selectedOption + "/";
+            console.log('Form submitted');
+        }
+    }
+    // Hide the loading overlay when the page is loaded
+    window.addEventListener('load', () => {
+        const loadingOverlay = document.getElementById('loading-overlay');
+        loadingOverlay.style.display = 'none';
+    });
+    function displayMessage(data) {
+        const captcha_image = document.getElementById('captcha');
+        const accuracy_image = document.getElementById('accuracy');
+        const loss_image = document.getElementById('loss');
+        const message = document.getElementById("message");
+        const sizeEl = document.querySelector('#size');
+        const dropdown = document.getElementById("dropdown");
+        const choice = (dropdown.value.match(/(?:\d+)/g) || []).join('');
+        var codeLinkBtn = document.getElementById("code-link");
+
+        let n = parseInt(choice);
+        let code = '';
+        for (let i = 1; i <= n; i++) {
+            code += `case ${i}:
+                            captcha_image.src = '/static/' + data.captcha_filepath_M${i};
+                            accuracy_image.src = '/static/pictures/' + data.accurecy_filepath_M${i};
+                            accuracy_image.width="550";
+                            accuracy_image.height="300";
+                            loss_image.src = '/static/pictures/' + data.loss_filepath_M${i};
+                            loss_image.width="550";
+                            loss_image.height="300";
+                            codeLinkBtn.style.display = "";
+                            codeLinkBtn.addEventListener("click", function() {
+                                window.location.href = data.code_M${i};
+                            });
+                            document.querySelector('#captcha-text').textContent = 'Example CAPTCHA';
+                            document.querySelector('#accuracy-text').textContent = 'Accuracy for selected Model';
+                            document.querySelector('#loss-text').textContent = 'Loss for selected Model';
+                            break;`;
+        }
+        code += `default: 
+                        captcha_image.src = '';
+                        accuracy_image.src = '';
+                        accuracy_image.width = "";
+                        accuracy_image.height = "";
+                        loss_image.src = '';
+                        loss_image.width = "";
+                        loss_image.height = "";
+                        codeLinkBtn.style.display = "none";
+                        sizeEl.textContent = '';
+                        document.querySelector('#captcha-text').textContent = '';
+                        document.querySelector('#accuracy-text').textContent = '';
+                        document.querySelector('#loss-text').textContent = '';
+                        break;`;
+        eval(`switch(n) { ${code} }`);
+    }
+</script>

@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include "./header.html" %}
+  <title>CAPTCHA Solver</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+  <div class="containers">
+    <h3 id="heading">Purpose of project</h3>
+    <p id="paragraph" style="padding: 20px; padding-top: 0%;">CAPTCHAs' purpose is to prevent spam on websites, such as
+      promotion
+      spam, registration spam, and data scraping, and bots are less likely to abuse
+      websites with spamming if those websites use CAPTCHA. Breaking those human
+      interaction proofs for Automated-work can be a crucial task as it was specially
+      designed for only humans to crack. However, detection of CAPTCHA can make
+      the work of a human easy and decrease the time consumed in such work.</p>
+    <hr class="my-4">
+    <div>
+      <p>We have developed CAPTCHA solver which can solve CAPTCHA generated using Python captcha library.<br> Click
+        below to try our model</p>
+      <button id="redirectToPage" class="btn" onclick="redirectToPage()">Try it Now</button>
+    </div>
+    <hr class="my-4">
+    <h3 style="padding-top: 20px;">Problems and weakness of current system</h3>
+    <p style="padding: 20px; padding-top: 0%;">In our system, there are limitations for the number of characters of
+      CAPTCHA, time complexity and space complexity. There are only few CAPTCHA
+      types which can be detected as the segmentation of each near character which
+      could be stuck next to each other or so much unresolvable. There are some
+      limitations while recognition of CAPTCHA for uploading the image as there should
+      be some dimension, colour contrast, padding and stretching.</p>
+    <h3>Future extension</h3>
+    <p style="padding: 20px; padding-top: 0%;">We planned to train model such it can detect zebra crossing in any given
+      image, which is used in Google ReCAPTCHA 2.0. We even trained model But due to lack of data images
+      and resources, accuracy is very low. Model is trained with 442 images
+      (Zebra Crossing (224) + Non zebra crossing (218)). There are about 100 mixed
+      random Images for testing</p>
+  </div>
+  {% include "./footer.html" %}
+</body>
+
+</html>
+
+<script>
+  function redirectToPage() {
+    window.location.href = "/selectModel";
+  }
+</script>

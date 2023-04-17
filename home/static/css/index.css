@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.heading {
+    margin: 20px 0 10px 0;
+}
+
+.paragraph {
+    line-height: 1.5;
+}
+
+.containers {
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.redirectToPage {
+    background-color: #333;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: auto;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #555;
+}

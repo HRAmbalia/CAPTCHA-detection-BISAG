@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generateCaptcha.css' %}">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #hvr:hover::before {
+            display: inline-block;
+            position: absolute;
+            background: #000;
+            color: #fff;
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 12px;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 5px);
+        }
+    </style>
+</head>
+
+<body>
+    {% include "./header.html" %}
+    <!-- The Modal -->
+    <!-- <div id="myModal" class="modal">
+        <div class="modal-content" style="padding: 40px; padding-right: 100px;">
+            <span class="close">&times;</span>
+            <div style="border: 1px solid #ccc; padding: 20px;">
+                <h5><b></b></h5>
+                <p style="padding: 40px; padding-top: 0%; padding-bottom: 10px;"></p>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="container" style="padding-bottom: 90px;">
+        <div class="forms-container">
+            <form method="post" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <label for="input" id="hvr" title="Enter Captcha text, will be printed on Captcha">Enter text:</label>
+                <input type="text" id="input" name="input" onkeyup="convertToLower(this)" minlength="4" maxlength="5">
+                <input type="checkbox" id="rndm" name="rndm">
+                <label for="rndm">Generate random Captcha</label>
+                <button type="submit">Generate Image</button>
+            </form>
+        </div>
+    </div>
+    {% include "./footer.html" %}
+</body>
+
+</html>
+
+<!-- <script>
+    window.onload = function () {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        modal.style.display = "block";
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script> -->
+<script>
+    function validateForm() {
+        var agreeCheckbox = document.getElementById("rndm");
+        if (!agreeCheckbox.checked) {
+            var input = document.getElementById("input").value;
+            var pattern = /^[a-z0-9]+$/;
+            if (!pattern.test(input)) {
+                alert("Input can only contain alphabets and numbers");
+                return false;
+            }
+            if (input.length < 5) {
+                alert("Input text must be at least 5 characters long.");
+                return false;
+            }
+            return true;
+        }
+    }
+    function convertToLower(element) {
+        element.value = element.value.toLowerCase();
+    }
+</script>

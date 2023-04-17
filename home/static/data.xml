@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+    <m1>
+        <captcha-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/dataset/M1_samples/</captcha-path>
+        <model-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/models/m1.h5</model-path>
+        <predict-file>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/predictProg/M1.py</predict-file>
+        <trained-code-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/modelCode/Model_M1.ipynb</trained-code-path>
+        <possible-characters>abcdefghijklmnopqrstuvwxyz0123456789</possible-characters>
+        <descreption>Model trained on 1.1k datasets</descreption>
+        <model-explained>1 -> applying first 2D convolutional layer with 16 filters of size (3,3) to the input image.//2 -> 2D max pooling layer with a pooling size of (2,2) to reduce the spatial dimensions of the feature map by half, while keeping the number of channels unchanged.//3 -> Then conv2 applies another convolutional layer with 32 filters of size (3,3) to the max pooled output of the previous layer.//4 -> Then applies another max pooling layer to further reduce the spatial dimensions of the feature map.//5 -> Conv3 applies a third convolutional layer with 32 filters of size (3,3) to the max pooled output of the previous layer.//6 -> Then we applies batch normalization to improve the stability of the model.//7 -> Than applies a final max pooling layer to further reduce the spatial dimensions of the feature map.//8 -> flattens the output of the final max pooling layer into a 1D array to prepare it for the fully connected layers.//9 -> Then a loop that creates five fully connected layers, each with 64 units and a ReLU activation function. A dropout layer is also applied after each dense layer with a rate of 0.5 to prevent overfitting. Finally, a sigmoid activation function is applied to each output layer, which produces a probability distribution over the possible characters in the CAPTCHA.//10 -> Then we creates a model that takes the input layer img and outputs a list of five output layers outs.//11 -> Finally we compiles the model with the categorical crossentropy loss function, the Adam optimizer, and accuracy as the evaluation metric. </model-explained>
+        <characters-in-captcha>5</characters-in-captcha>
+        <captcha-image-height>50</captcha-image-height>
+        <captcha-image-width>200</captcha-image-width>
+        <image>
+            <accurecy>
+                <filename>M1_accurecy.png</filename>
+                <data>base64-encoded-image-data</data>
+            </accurecy>
+            <loss>
+                <filename>M1_loss.png</filename>
+                <data>base64-encoded-image-data</data>
+            </loss>
+            <model>
+                <filename>M1_model.png</filename>
+                <data>base64-encoded-image-data</data>
+            </model>
+        </image>
+        <overallaccurecy>Hello M1</overallaccurecy>
+        <overallloss>Hiiiii M1</overallloss>
+    </m1>
+    <m2>
+        <captcha-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/dataset/M2_samples/</captcha-path>
+        <model-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/models/m2.h5</model-path>
+        <predict-file>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/predictProg/M2.py</predict-file>
+        <trained-code-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/modelCode/Model_M2.ipynb</trained-code-path>
+        <possible-characters>0123456789</possible-characters>
+        <descreption>Model trained on 20k datasets</descreption>
+        <model-explained>1 -> First 2D convolutional layer with 32 filters and a kernel size of 3. It applies a convolutional operation to the input image to extract features and uses the ReLU activation function to introduce non-linearity.// 2 -> Then a pooling layer that performs down-sampling by taking the maximum value of each non-overlapping patch of size (2, 2) from the previous layer's output. It reduces the spatial dimensions of the output.//3 -> Two more Conv2D and MaxPooling2D layers with 64 filters and a kernel size of 3 are added after the first Conv2D layer and MaxPooling2D layer.//4 -> Flatten layer to flattens the output from the previous layer into a 1D tensor.//5 -> Dense layer : It is a fully connected layer with 1024 neurons and ReLU activation function.//6 -> Then It is another fully connected layer that outputs a tensor of shape (D * N_LABELS), where D is the number of digits in the label and N_LABELS is the number of possible classes for each digit.//7 -> Reshape layer : reshapes the output from the previous layer into a tensor of shape.//8 -> Finally The model is defined using the input and output layers and compiled using the 'adam' optimizer, 'categorical_crossentropy' loss function, and 'accuracy' metric. </model-explained>
+        <characters-in-captcha>4</characters-in-captcha>
+        <captcha-image-height>100</captcha-image-height>
+        <captcha-image-width>120</captcha-image-width>
+        <image>
+            <accurecy>
+                <filename>M2_accurecy.png</filename>
+                <data>base64-encoded-image-data</data>
+            </accurecy>
+            <loss>
+                <filename>M2_loss.png</filename>
+                <data>base64-encoded-image-data</data>
+            </loss>
+            <model>
+                <filename>M2_model.png</filename>
+                <data>base64-encoded-image-data</data>
+            </model>
+        </image>
+        <overallaccurecy>0.8956831097602844</overallaccurecy>
+        <overallloss>0.49131980538368225</overallloss>
+    </m2>
+    <m2>
+        <captcha-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/dataset/M3_samples/</captcha-path>
+        <model-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/models/m3.h5</model-path>
+        <predict-file>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/predictProg/M3.py</predict-file>
+        <trained-code-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/modelCode/Model_M3.ipynb</trained-code-path>
+        <possible-characters>abcdefghijklmnopqrstuvwxyz0123456789</possible-characters>
+        <descreption>Model trained on 5lack Datasets</descreption>
+        <model-explained>1 -> This model consists of several convolutional layers, each followed by batch normalization, max pooling, and a non-linear activation function (ReLU). The number of filters in each convolutional layer increases from 32 to 64, 128, and 256. //2 -> Then output of the last convolutional layer is flattened and fed into two dense (fully connected) layers with 1024 and 512 units, respectively. (Each dense layer is followed by a dropout layer with a rate of 0.5 to prevent overfitting).//3 -> Finally final layer is a dense layer with D * N_LABELS units and a softmax activation function.//4 -> The model is compiled with the Adam optimizer and categorical cross-entropy loss. The accuracy metric is also computed during training. </model-explained>
+        <characters-in-captcha>5</characters-in-captcha>
+        <captcha-image-height>100</captcha-image-height>
+        <captcha-image-width>120</captcha-image-width>
+        <image>
+            <accurecy>
+                <filename>M3_accurecy.png</filename>
+                <data>base64-encoded-image-data</data>
+            </accurecy>
+            <loss>
+                <filename>M3_loss.png</filename>
+                <data>base64-encoded-image-data</data>
+            </loss>
+            <model>
+                <filename>M3_model.png</filename>
+                <data>base64-encoded-image-data</data>
+            </model>
+        </image>
+        <overallaccurecy>0.9537724852561951</overallaccurecy>
+        <overallloss>0.2069108635187149</overallloss>
+    </m2>
+</model>
