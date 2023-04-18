@@ -56,7 +56,7 @@
         <overallaccurecy>0.8956831097602844</overallaccurecy>
         <overallloss>0.49131980538368225</overallloss>
     </m2>
-    <m2>
+    <m3>
         <captcha-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/dataset/M3_samples/</captcha-path>
         <model-path>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/models/m3.h5</model-path>
         <predict-file>/home/hr/Documents/BISAG/Code/Project_TCGD/final_Proj/home/static/predictProg/M3.py</predict-file>
@@ -83,5 +83,5 @@
         </image>
         <overallaccurecy>0.9537724852561951</overallaccurecy>
         <overallloss>0.2069108635187149</overallloss>
-    </m2>
+    </m3>
 </model>

@@ -25,11 +25,15 @@ To run this project, you will need the following:
 
 1. Clone the repository: 
 
- - `git clone https://github.com/HRAmbalia/CAPTCHA-detection-BISAG.git`
+```git
+ git clone https://github.com/HRAmbalia/CAPTCHA-detection-BISAG.git
+ ```
 
 2. Install the required packages using pip:
 
- - `pip install -r requirements.txt`
+```python
+pip install -r requirements.txt
+```
 
 3. Download the pre-trained model from the following link for the app `home`: 
  - [Model1 Link](https://drive.google.com/file/d/1L3KnTb1TvhID_bcyGU5OodpVi39Nn_So/view?usp=sharing) naming it m1.h2,
@@ -45,9 +49,11 @@ To run this project, you will need the following:
 
 ## Usage
 
-To run the CAPTCHA detection program, run the following command:
+To run the application, run the following command:
 
-`python3 manage.py runserver`
+```python
+python3 manage.py runserver
+```
 
 ## Contributing
 
