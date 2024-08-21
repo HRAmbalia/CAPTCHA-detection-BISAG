@@ -58,9 +58,9 @@ python3 manage.py runserver
 ## Contributors
 
 Contributions are welcome! If you'd like to contribute to this project, please contact contributors.
-1. Chandresh Gohel: chandreshgohel26@gmail.com
-2. Riddhi Chaudhary: ridchaudhari18@gmail.com
-3. Samruddhi Thakor: sammythakor123@gmail.com
+1. Chandresh Gohel
+2. Riddhi Chaudhary
+3. Samruddhi Thakor
 
 ## Contact
 
